@@ -1,6 +1,6 @@
 import React from 'react';
 
-// Using the new Sun SVG you provided
+
 const SunIcon = ({ size }) => (
   <svg
     style={{ width: size, height: size }}
@@ -15,7 +15,7 @@ const SunIcon = ({ size }) => (
   </svg>
 );
 
-// Using the new Moon SVG you provided
+
 const MoonIcon = ({ size }) => (
   <svg
     style={{ width: size, height: size }}
@@ -33,7 +33,7 @@ const MoonIcon = ({ size }) => (
 
 
 function ThemeToggle({ theme, toggleTheme }) {
-  const iconSize = 28; // Define the desired size here
+  const iconSize = 28; 
 
   return (
     <button onClick={toggleTheme} className="theme-toggle-button" aria-label="Toggle theme">

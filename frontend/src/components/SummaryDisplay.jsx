@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-// --- SVG Icons for UI Actions ---
+
 const CopyIcon = () => (
   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
 );
@@ -20,7 +20,7 @@ const StopIcon = () => (
   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect></svg>
 );
 
-// --- Helper Functions ---
+
 const parseAndHighlightText = (text) => {
   if (!text) return '';
   const content = text.split(/:\s*\n/)[1] || text;
@@ -38,10 +38,10 @@ const getRawTextForCopy = (text) => {
     .replace(/^- |^\* /gm, '');
 }
 
-// --- Main Component ---
+
 function SummaryDisplay({ data, error }) {
   const [isCopied, setIsCopied] = useState({ paragraph: false, highlights: false });
-  const [ttsState, setTtsState] = useState('idle'); // idle, playing, paused
+  const [ttsState, setTtsState] = useState('idle');
 
   useEffect(() => {
     return () => {
@@ -119,14 +119,14 @@ function SummaryDisplay({ data, error }) {
   const wordCount = getRawTextForCopy(summaryParagraph).split(/\s+/).filter(Boolean).length;
  const bulletPoints = highlightsList
   .split('\n')
-  .map(line => line.trim())                // remove leading/trailing spaces
+  .map(line => line.trim())               
   .filter(line => line && /^[\-\*]\s+/.test(line));
 
 
   return (
     <div className="animate-fade-in space-y-4">
 
-      {/* --- Main Action Buttons --- */}
+      {}
       <div className="summary-container flex flex-wrap items-center justify-between gap-4">
         <div className='flex flex-col'>
           <h3 className='text-lg font-semibold'>Summary Actions</h3>
@@ -141,7 +141,7 @@ function SummaryDisplay({ data, error }) {
         </div>
       </div>
 
-      {/* Summary Paragraph Card */}
+      {}
       {summaryParagraph && (
         <div className="summary-container">
           <div className="summary-header">
@@ -159,7 +159,7 @@ function SummaryDisplay({ data, error }) {
         </div>
       )}
 
-      {/* Key Highlights Card (only for AI summaries) */}
+      {}
       {modelType !== 'traditional' && highlightsList && (
         <div className="summary-container">
           <div className="summary-header">

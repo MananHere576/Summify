@@ -1,4 +1,4 @@
-/* --- Global Styles & Variables --- */
+
 :root {
   --primary-color: #3498db;
   --primary-hover: #2980b9;
@@ -15,7 +15,7 @@
   --box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
 }
 
-/* --- NEW: Dark Theme Variables --- */
+
 body[data-theme='dark'] {
   --primary-color: #4a90e2;
   --primary-hover: #357abd;
@@ -49,21 +49,21 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 1rem; /* Adjust padding for sticky header */
+  padding: 0 1rem; 
   margin: 0;
   height: var(--navbar-height);
   
-  /* Sticky, blurred effect */
+
   position: sticky;
   top: 0;
   z-index: 1200;
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   
-  /* Position within the main container */
+
   width: 100%;
   max-width: 2560px;
-  box-sizing: border-box; /* Include padding in width */
+  box-sizing: border-box;
   margin: 0 auto 2rem auto;
   animation: fadeInDown 0.8s ease-out;
 }
@@ -74,7 +74,7 @@ body[data-theme='dark'] .app-header-navbar {
 
 
 .app-header-navbar {
-  /* Full-width, fixed, blurred navbar */
+
   position: fixed;
   top: 0;
   left: 0;
@@ -86,7 +86,7 @@ body[data-theme='dark'] .app-header-navbar {
   -webkit-backdrop-filter: blur(10px);
   border-bottom: 1px solid var(--border-color);
   display: flex;
-  justify-content: center; /* Center the inner content div */
+  justify-content: center;
   align-items: center;
   animation: fadeInDown 0.8s ease-out;
 }
@@ -95,14 +95,14 @@ body[data-theme='dark'] .app-header-navbar {
     background-color: rgba(18, 18, 18, 0.8);
 }
 
-/* Inner container for navbar content to keep it aligned with the main app content */
+
 .navbar-content {
   display: flex;
   justify-content: space-between;
   align-items: center;
   width: 100%;
   height:50px;
-  max-width: 1280px; /* Same max-width as .app-container */
+  max-width: 1280px; 
   padding: 10 1rem;
 }
 
@@ -129,8 +129,7 @@ body[data-theme='dark'] .app-header-navbar {
   margin: 0;
 }
 
-/* --- Theme Toggle Button --- */
-/* --- Theme Toggle Button --- */
+
 .theme-toggle-button {
   background-color: var(--card-background);
   border: 1px solid var(--border-color);
@@ -146,7 +145,7 @@ body[data-theme='dark'] .app-header-navbar {
   transition: all 0.3s ease;
   box-shadow: var(--box-shadow);
   flex-shrink: 0;
-  overflow: hidden; /* makes sure icon stays inside circle */
+  overflow: hidden; 
 }
 
 .theme-toggle-button:hover {
@@ -158,7 +157,7 @@ body[data-theme='dark'] .app-header-navbar {
   display: block;
 }
 
-/* --- Guide Section --- */
+
 .guide-container {
   background: var(--card-background);
   padding: 1.5rem 2rem;
@@ -203,7 +202,7 @@ body[data-theme='dark'] .app-header-navbar {
   flex-shrink: 0;
 }
 
-/* --- Controls --- */
+
 .controls-container {
     display: flex;
     justify-content: center;
@@ -269,7 +268,7 @@ body[data-theme='dark'] .length-buttons-group button:hover {
     opacity: 0.6;
 }
 
-/* --- Dropzone --- */
+
 .dropzone {
   border: 3px dashed var(--border-color);
   border-radius: var(--border-radius);
@@ -307,7 +306,7 @@ body[data-theme='dark'] .length-buttons-group button:hover {
   font-size: 0.9rem;
 }
 
-/* --- Summary Display --- */
+
 .summary-container {
   background: var(--card-background);
   padding: 2rem;
@@ -373,7 +372,6 @@ body[data-theme='dark'] .highlight {
     color: #8cb4ff;
 }
 
-/* --- Error State --- */
 .error-container {
   border-left: 5px solid var(--error-color);
   background-color: #fff5f5;
@@ -389,7 +387,6 @@ body[data-theme='dark'] .error-container {
   font-weight: 500;
 }
 
-/* --- Footer --- */
 .app-footer {
   text-align: center;
   margin-top: 3rem;
@@ -397,7 +394,7 @@ body[data-theme='dark'] .error-container {
   font-size: 0.9rem;
 }
 
-/* --- Animations --- */
+
 @keyframes fadeInDown {
   from { opacity: 0; transform: translateY(-20px); }
   to { opacity: 1; transform: translateY(0); }
@@ -407,7 +404,7 @@ body[data-theme='dark'] .error-container {
   to { opacity: 1; transform: translateY(0); }
 }
 
-/* --- Mobile Responsiveness --- */
+
 @media (max-width: 768px) {
   .app-header h1 {
     font-size: 2rem;
@@ -431,7 +428,7 @@ body[data-theme='dark'] .error-container {
   }
 }
 
-/* --- Preloader Styles --- */
+
 .preloader {
   display: flex;
   align-items: center;

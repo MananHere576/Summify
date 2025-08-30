@@ -1,20 +1,14 @@
-// --- Gemini AI Setup ---
+
 const { GoogleGenerativeAI } = require("@google/generative-ai");
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 
-/**
- * Call Gemini API to generate a structured summary.
- * Returns a string in the format:
- * Summary Paragraph: ...
- * Key Highlights:
- * - ...
- */
+
 async function aiSummarize(text, length = "medium") {
   try {
-    // Truncate very long text to avoid token limit errors
+    
     const truncatedText = text.length > 15000 ? text.slice(0, 15000) : text;
 
-    // --- START: Dynamic Prompt Generation ---
+  
     let paragraphInstruction = "a detailed summary of 4-5 sentences";
     let highlightsInstruction = "Provide 5-7 key highlights as bullet points.";
 
@@ -27,7 +21,7 @@ async function aiSummarize(text, length = "medium") {
         paragraphInstruction = "a comprehensive summary of 6-8 sentences";
         highlightsInstruction = "Provide 8-10 key highlights as bullet points.";
         break;
-      // 'medium' is handled by the default initial values
+     
     }
 
     const prompt = `
@@ -45,7 +39,7 @@ Text to summarize:
 ${truncatedText}
 ---
     `;
-    // --- END: Dynamic Prompt Generation ---
+  
 
     console.log("Sending prompt to Gemini (first 500 chars):", prompt.slice(0, 500));
 
@@ -63,7 +57,6 @@ ${truncatedText}
 }
 
 
-// --- Traditional Summarization Functions ---
 function splitSentences(text) {
   return (text || "")
     .replace(/\s+/g, " ")
@@ -145,5 +138,5 @@ function extractKeyPoints(summary) {
   return bullets.slice(0, 5);
 }
 
-// --- Export functions ---
+
 module.exports = { summarizeText, extractKeyPoints, aiSummarize };

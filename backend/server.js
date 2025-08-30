@@ -1,4 +1,3 @@
-// --- Load environment variables ---
 require('dotenv').config();
 
 const express = require("express");
@@ -9,14 +8,14 @@ const os = require("os");
 const path = require("path");
 const pdfParse = require("pdf-parse");
 
-// Utilities for OCR and summarization
+
 const { extractTextFromImage, extractTextFromPdfWithOcr } = require("./utils/ocr");
 const { summarizeText, extractKeyPoints, aiSummarize } = require("./utils/summarizer");
 
 const app = express();
 const upload = multer({ dest: path.join(os.tmpdir(), "docsum_uploads") });
 
-// --- Middlewares ---
+
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -28,26 +27,25 @@ app.use((req, res, next) => {
   next();
 });
 
-// --- Helper ---
 function allowedFile(filename) {
   return /\.(pdf|png|jpg|jpeg|tif|tiff)$/i.test(filename);
 }
 
-// --- API Route: Summarize Document ---
+
 app.post("/api/summarize", upload.single("file"), async (req, res) => {
   try {
     const file = req.file;
-    const length = (req.body.length || "medium").toLowerCase(); // short, medium, long
-    const mode = (req.body.modelType || "ai").toLowerCase(); // "ai" or "traditional"
+    const length = (req.body.length || "medium").toLowerCase();
+    const mode = (req.body.modelType || "ai").toLowerCase();
 
     console.log("Mode selected:", mode);
 
     if (!file) return res.status(400).json({ error: "No file uploaded." });
     if (!allowedFile(file.originalname)) return res.status(415).json({ error: "Unsupported file type." });
 
-    // --- Extract text from file ---
     let text = "";
     let numPages = 0;
+
 
     if (file.mimetype === "application/pdf" || file.originalname.toLowerCase().endsWith(".pdf")) {
       const buf = fs.readFileSync(file.path);
@@ -56,28 +54,25 @@ app.post("/api/summarize", upload.single("file"), async (req, res) => {
       numPages = data.numpages || 0;
 
       if (!text) {
-        console.log("⚠️ No embedded text in PDF. Using OCR...");
-        text = await extractTextFromPdfWithOcr(file.path, 3);
+        console.log("⚠️ No embedded text in PDF. Skipping OCR for serverless.");
+        text = await extractTextFromPdfWithOcr(buf);
       }
     } else {
-      text = await extractTextFromImage(file.path);
+      const fileBuffer = fs.readFileSync(file.path);
+      text = await extractTextFromImage(fileBuffer);
     }
 
-    // Cleanup temp file
-    fs.unlink(file.path, () => { });
+    fs.unlink(file.path, () => {}); 
 
     if (!text) return res.status(400).json({ error: "Could not extract text from file." });
 
-    // --- Summarization ---
+    
     let summaryResponse;
 
     if (mode === "ai") {
-      // ✅ Gemini AI summarization
       const fullTextSummary = await aiSummarize(text, length);
       console.log("AI raw summary:", fullTextSummary);
 
-      // Split summary into paragraph and highlights
-      // Ensure fallback if AI didn't follow exact format
       let summaryParagraph = "Could not generate a summary.";
       let highlightsList = "No key highlights generated.";
 
@@ -95,9 +90,7 @@ app.post("/api/summarize", upload.single("file"), async (req, res) => {
         modelType: "ai",
         length
       };
-
     } else if (mode === "traditional") {
-      // ✅ Traditional summarization
       const summary = summarizeText(text, length);
       const keyPoints = extractKeyPoints(summary);
 
@@ -121,7 +114,7 @@ app.post("/api/summarize", upload.single("file"), async (req, res) => {
   }
 });
 
-// --- Serve frontend static files ---
+
 app.use(express.static(path.join(__dirname, "../frontend")));
 
 // --- Start server ---

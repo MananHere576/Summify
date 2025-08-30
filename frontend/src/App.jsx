@@ -16,7 +16,7 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [summaryLength, setSummaryLength] = useState('medium');
-  const [modelType, setModelType] = useState('ai'); // Default is Gemini API
+  const [modelType, setModelType] = useState('ai'); 
 
   const API_BASE_URL = (import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000').replace(/\/$/, '');
 
@@ -42,7 +42,7 @@ function App() {
     const formData = new FormData();
     formData.append('file', uploadedFile);
     formData.append('length', summaryLength);
-    formData.append('modelType', modelType); // must match backend: "traditional" or "ai"
+    formData.append('modelType', modelType);
 
     try {
       const { data } = await axios.post(`${API_BASE_URL}/api/summarize`, formData);
