@@ -11,7 +11,7 @@ function Preloader() {
         {}
         <ThreeDot
           variant="bounce"
-          color="#4a90e2"
+          color="#8B0000"
           size="large"
           textColor="#000000"
         />
